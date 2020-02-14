@@ -15,7 +15,7 @@ async function GetData (Collection){
 // Client connection to MongoDbd
 // Main Route
 app.get('/', function(req, res){
-   res.send("Hello from root - ");
+   res.send("Hello from root - hii");
 });
 
 // Testing Route
@@ -63,6 +63,9 @@ app.get("/getBusDrivers", function(req, res){
 });
 
 const PORT = process.env.PORT || 3000;
+
+var database;
+var MGresponse;
 
 // Listening port 
  var server = app.listen(PORT, async () => {
