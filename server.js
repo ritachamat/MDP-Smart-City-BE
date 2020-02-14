@@ -72,13 +72,17 @@ var MGresponse;
     console.log("Listening on port: ", PORT);
     MongoClient = require('mongodb').MongoClient;
     DBConnectionString = 'mongodb+srv://admin:<admin>@cluster0-pw7m4.mongodb.net/test?retryWrites=true&w=majority';
+    console.log("List");
     try{
+     console.log("List");
       MGresponse = await MongoClient.connect(DBConnectionString, 
           {
           useNewUrlParser: true, 
           useUnifiedTopology: true 
       });
+      console.log("List");
       database = await MGresponse.db("Abribus_Management");
+      console.log("List");
       if(database){
           console.log("Database connected");
       }
