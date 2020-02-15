@@ -9,9 +9,7 @@ var MGresponse;
 async function GetData (Collection){
    try{
        const collection = await database.collection(Collection);
-       console.log("GetData");
        const item = await collection.find().toArray();
-       console.log("GetData");
        return item;
    }catch(err){
        return err;
@@ -27,12 +25,8 @@ app.get('/', function(req, res){
 // Testing Route
 app.get('/test', function(req, res){
    try{
-    console.log("/test");
       GetData("test").then((data) => {
           res.send(data);
-          console.log(data);
-
-
       })
   }catch(err){
       res.send(err)
@@ -76,8 +70,8 @@ const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, async () => {
     console.log("Listening on port: ", PORT);
-    MongoClient = require('mongodb').MongoClient;
-    DBConnectionString = 'mongodb+srv://admin:<admin>@cluster0-pw7m4.mongodb.net/test?retryWrites=true&w=majority';
+    MongoClient = require("mongodb").MongoClient;
+    DBConnectionString = 'mongodb+srv://admin:admin@cluster0-pw7m4.mongodb.net/test?retryWrites=true&w=majority';
     try{
         MGresponse = await MongoClient.connect(DBConnectionString, 
             {
