@@ -1,11 +1,17 @@
 var express = require ("express");
 var app = express();
+var body_parser= require('body-parser');
+app.use(body_parser.json());
+var database; 
+var MGresponse;
 
 // Get Data function to fetch it from MongoDB
 async function GetData (Collection){
    try{
        const collection = await database.collection(Collection);
+       console.log("GetData");
        const item = await collection.find().toArray();
+       console.log("GetData");
        return item;
    }catch(err){
        return err;
@@ -21,8 +27,12 @@ app.get('/', function(req, res){
 // Testing Route
 app.get('/test', function(req, res){
    try{
+    console.log("/test");
       GetData("test").then((data) => {
           res.send(data);
+          console.log(data);
+
+
       })
   }catch(err){
       res.send(err)
@@ -64,32 +74,24 @@ app.get("/getBusDrivers", function(req, res){
 
 const PORT = process.env.PORT || 3000;
 
-var database;
-var MGresponse;
-
-// Listening port 
- var server = app.listen(PORT, async () => {
+app.listen(PORT, async () => {
     console.log("Listening on port: ", PORT);
     MongoClient = require('mongodb').MongoClient;
     DBConnectionString = 'mongodb+srv://admin:<admin>@cluster0-pw7m4.mongodb.net/test?retryWrites=true&w=majority';
-    console.log("List");
     try{
-     console.log("List");
-      MGresponse = await MongoClient.connect(DBConnectionString, 
-          {
-          useNewUrlParser: true, 
-          useUnifiedTopology: true 
-      });
-      console.log("List");
-      database = await MGresponse.db("Abribus_Management");
-      console.log("List");
-      if(database){
-          console.log("Database connected");
-      }
-      else{
-          console.log("Connection error to database");
-      }
-  }catch(err){
-      return err;
-  }
+        MGresponse = await MongoClient.connect(DBConnectionString, 
+            {
+            useNewUrlParser: true, 
+            useUnifiedTopology: true 
+        });
+        database = await MGresponse.db("Abribus_Management");
+        if(database){
+            console.log("Database connected");
+        }
+        else{
+            console.log("Connection error to database");
+        }
+    }catch(err){
+        return err;
+    }
 });
