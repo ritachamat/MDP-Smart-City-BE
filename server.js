@@ -5,6 +5,34 @@ app.use(body_parser.json());
 var database; 
 var MGresponse;
 
+// Connection to MQTT Broker
+var mqtt = require('mqtt');
+
+// Client Connection
+var client = mqtt.connect('http://192.168.134.1:1883')
+
+client.on('connect', function () {
+    console.log("Connected");
+    // Client Subscription to Topic
+    client.subscribe('home/garden/fountain', function (err) {
+        console.log("Subscribed");
+        if(err){
+            console.log("error");
+        }
+    })
+})
+client.on('message', function (topic, message) {
+    // message is Buffer
+    console.log(message.toString());
+    try{
+        // if the lamp is On
+        console.log("subscribed");
+
+    }catch(err){
+        console.log(err)
+    }
+})
+
 // Get Data function to fetch it from MongoDB
 async function GetData (Collection){
    try{
