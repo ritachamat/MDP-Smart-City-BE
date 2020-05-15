@@ -3,7 +3,7 @@
 
 # MQTT Broker 
 - For the local MQTT broker 
-  Download mosquitto (run on cmd)
+- Download mosquitto (run on cmd)
 - Download MQTT fx
 
 # MongoDB 
